@@ -1,7 +1,6 @@
 # <img src="https://github.com/AyushSrivastava987/Price-Prediction-of-Cars/blob/main/Media/d25xwg9-caa739b2-d717-4ace-8f36-97c6a4bc7f2f.gif" width="100%" height="100">
                                    Price-Prediction of Pre-owned Mercedes-Benz Cars
-<p align="center"><img src="https://github.com/AyushSrivastava987/Price-Prediction-of-Cars/blob/main/Media/Car.gif" width="400" height="250">
- <br>
+
 <p align="center"><img src="https://github.com/AyushSrivastava987/Price-Prediction-of-Cars/blob/main/Media/car%202.gif" width="310" height="180"> 
  <br>
   
