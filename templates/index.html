@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Price Predictor</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+    .bg-dark {
+        background-color: #757678;
+        }
+    .mt-50 {
+        margin-top: 50px;
+        }
+    .img {
+        background: url(https://a-static.besthdwallpaper.com/headlights-on-black-and-white-mercedes-benz-wallpaper-1680x1260-107907_24.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(15px);
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        }
+    
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="card mt-50" style="width: 100%; height: 100%">
+                <div class="card-header" style="text-align: center">
+                    <h1>Welcome to Car Price Predictor</h1>
+                </div>
+                <div class="card-body">
+                    <div class="col-12" style="text-align: center">
+                        <h5>This app predicts the price of a Mercedes car. Try filling the details below: </h5>
+                    </div>
+                    <br>
+                    <form method="post" accept-charset="utf-8" name="Modelform">
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><b>Select the Variant:</b> </label><br>
+                            <select class="selectpicker form-control" id="variant" name="variant" required="1">
+                                {% for variant in variants %}
+                                <option value="{{ variant }}">{{ variant }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><b>Select the Dealer Name:</b> </label><br>
+                            <select class="selectpicker form-control" id="dealer_name" name="dealer_name" required="1">
+                                <option value="">Select Dealer Name</option>
+                                {% for dealer_name in dealer_names %}
+                                <option value="{{ dealer_name }}">{{ dealer_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><b>Select Mileage (mi.):</b> </label><br>
+                            <select class="selectpicker form-control" id="mileage" name="mileage" required="1">
+                                {% for m in mileage %}
+                                <option value="{{ m }}">{{ m }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><b>Select Rating:</b> </label><br>
+                            <select class="selectpicker form-control" id="rating" name="rating" required="1">
+                                {% for r in rating %}
+                                <option value="{{ r }}">{{ r }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><b>Select Year:</b> </label><br>
+                            <select class="selectpicker form-control" id="year" name="year" required="1">
+                                {% for y in year %}
+                                <option value="{{ y }}">{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <button class="btn btn-primary form-control" onclick="send_data(event)">Predict Your Dream Car Price($)</button>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="row">
+                        <div class="col-12" style="text-align: center">
+                            <h4><span id="prediction"></span></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function send_data(event) {
+            event.preventDefault(); // Prevent form submission
+            var form = document.forms['Modelform']; // Get the form by name
+
+            var formData = new FormData(form); // Create a new FormData object and populate it with form data
+
+            var xhr = new XMLHttpRequest(); // Create a new XMLHttpRequest object
+            xhr.open('POST', '/predict', true); // Open a POST request to the '/predict' endpoint
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('prediction').textContent = 'Prediction: $' + xhr.responseText; // Update the prediction element with the response
+                }
+            };
+            xhr.send(formData); // Send the form data to the server
+        }
+    </script>
+</body>
+</html>
